@@ -20,7 +20,7 @@
 
       <div class="p-5 bg-white mt-3 rounded-sm">
         <div class="flex flex-col">
-          <a class="audio-select first:border-t hover:bg-slate-200" :class="{active: current == part}" v-for="part, i in parts" :key="i" @click="() => change(part)">
+          <a :href="part + ''" class="audio-select first:border-t hover:bg-slate-200" :class="{active: current == part}" v-for="part, i in parts" :key="i" @click="() => change(part)">
             Đường Xưa Mây Trắng Phần {{part}}
           </a>
 
@@ -33,9 +33,10 @@
 <script setup lang="ts">
 import { Ref } from 'vue';
 
+const part = useRoute().path[1]
 const parts = new Array(21).fill(0).map((_, i) => i + 1)
 
-const current = ref(1)
+const current = ref(part ? +part : 1)
 const autoplay = ref(true)
 
 const control: Ref<HTMLAudioElement> = ref()
@@ -57,6 +58,7 @@ onMounted(() => {
       control.value.paused ? control.value.play() : control.value.pause()
     }
   })
+
 })
 </script>
 
