@@ -31,15 +31,12 @@
 </template>
 
 <script setup lang="ts">
-import { Ref } from 'vue';
-
-const part = useRoute().path[1]
+const part = useRoute().path.split('/')[1]
 const parts = new Array(21).fill(0).map((_, i) => i + 1)
 
 const current = ref(part ? +part : 1)
 const autoplay = ref(true)
-
-const control: Ref<HTMLAudioElement> = ref()
+const control = ref<HTMLAudioElement>()
 
 const change = (part: number) => {
   current.value = part
@@ -58,7 +55,6 @@ onMounted(() => {
       control.value.paused ? control.value.play() : control.value.pause()
     }
   })
-
 })
 </script>
 
